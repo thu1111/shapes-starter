@@ -4,7 +4,7 @@
 // This is also where we define functions to modify the state.
 
 // TODO: Add support for more colors
-const colors = ["red", "green", "blue"];
+const colors = ["red", "green", "blue", "aqua", "purple", "orange", "yellow"];
 const sizes = ["small", "medium", "large"];
 const maxShapes = 10;
 const shapes = [
@@ -13,7 +13,7 @@ const shapes = [
     size: "small",
   },
   {
-    color: "yellow",
+    color: "purple",
     size: "small",
   },
 ];
@@ -23,8 +23,7 @@ function addShape() {
   const color = colors[Math.floor(Math.random() * colors.length)];
 
   // TODO: Randomize the size of the shape
-  const size = "small";
-
+  const size = sizes[Math.floor(Math.random() * sizes.length)];
   shapes.push({ color, size });
 }
 
@@ -36,14 +35,25 @@ function addShape() {
 function render() {
   // Render the squares
   const squareList = document.querySelector("#squares");
+
   const squareElements = shapes.map((shape) => {
     const squareElement = document.createElement("li");
     squareElement.classList.add(shape.color, shape.size);
     return squareElement;
   });
+
   squareList.replaceChildren(...squareElements);
 
   // TODO: Render the circles
+  const circleList = document.querySelector("#circles");
+
+  const circleElements = shapes.map((shape)=>{
+    const circleElement = document.createElement("li");
+    circleElement.classList.add("circle",shape.color, shape.size);
+    return circleElement;
+  });
+
+  circleList.replaceChildren(...circleElements);
 }
 
 // === Script ===
@@ -53,10 +63,13 @@ function render() {
 // and return an interval ID that we can use to stop the interval later.
 // Calling `clearInterval(addShapeIntervalId)` will stop the interval.
 const addShapeIntervalId = setInterval(() => {
-  addShape();
-  render();
+addShape();
+render();
 
-  // TODO: Stop adding shapes if we've reached the maximum number of shapes
+// //   // TODO: Stop adding shapes if we've reached the maximum number of shapes
+if (shapes.length >= maxShapes) {clearInterval(addShapeIntervalId);}
 }, 1000);
+
+
 
 render(); // We call this function once to render the initial state

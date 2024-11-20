@@ -38,6 +38,10 @@ li {
   background-color: purple;
 }
 
+.aqua {
+  background-color: aqua;
+}
+
 /* Sizes */
 .small {
   width: 25px;
